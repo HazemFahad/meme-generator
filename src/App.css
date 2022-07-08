@@ -1,85 +1,145 @@
+* {
+  font-family: "Roboto", sans-serif;
+}
+
 .App {
   text-align: center;
 }
 
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: red; */
+}
+
+.banner {
+  margin: 70px;
+  width: 70%;
+  text-align: left;
+  /* background-color: aqua; */
+}
+
+.logo {
+  height: 100px;
+  margin: 70px;
+
+  max-width: 30%;
+  right: 0%;
+  /* background-color: blueviolet; */
+}
+
+.memeImageContainer {
+  text-align: center;
+  padding: 5px;
+  width: auto;
+  /* background-color: aqua; */
+}
+
+.memeImageContainer:hover {
+  opacity: 0.5;
+}
+
 .memePhoto {
-  width: 99% !important;
+  width: 98% !important;
   height: auto !important;
-  border: 5px solid red;
+  border: 5px solid black;
+  border-radius: 5px;
+  transition: 0.5s ease;
+  backface-visibility: hidden;
+  opacity: 1;
+}
+
+.memeHolder :hover {
+  opacity: 0.5;
 }
 
 .photoGrid {
   line-height: 0;
-
-  -webkit-column-count: 5;
+  width: auto;
+  -webkit-column-count: 3;
   -webkit-column-gap: 0px;
-  -moz-column-count: 5;
+  -moz-column-count: 3;
   -moz-column-gap: 0px;
-  column-count: 5;
+  column-count: 3;
   column-gap: 0px;
   margin-top: 50px;
+  cursor: pointer;
 }
 
 @media (max-width: 1200px) {
-  .photoGrid {
-    -moz-column-count: 4;
-    -webkit-column-count: 4;
-    column-count: 4;
-  }
-}
-@media (max-width: 1000px) {
   .photoGrid {
     -moz-column-count: 3;
     -webkit-column-count: 3;
     column-count: 3;
   }
 }
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
   .photoGrid {
     -moz-column-count: 2;
     -webkit-column-count: 2;
     column-count: 2;
   }
 }
-@media (max-width: 400px) {
+@media (max-width: 800px) {
   .photoGrid {
     -moz-column-count: 1;
     -webkit-column-count: 1;
     column-count: 1;
   }
-}
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+  .header {
+    display: block;
+  }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+  .banner {
+    margin: 0px;
+    width: 100%;
+    text-align: center;
+    /* background-color: aqua; */
+  }
+
+  .logo {
+    height: 100px;
+    margin: 0px;
+    max-width: 30%;
+    right: 0%;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.memeForm {
+  float: right;
+  width: 50%;
+  /* background-color: red; */
+  height: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.memeBuilderImageContainer {
+  text-align: center;
+  width: 50%;
+  /* background-color: blue; */
+  float: left;
+  max-height: 300px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.memeBuilderImage {
+  max-height: 300px;
+  max-width: 100%;
+  border-radius: 5px;
+}
+
+.memeBuilderInput {
+  width: 90%;
+  margin: 5px 0;
+  padding: 3px;
+}
+
+.buttons {
+  width: 50%;
+  margin-top: 10px;
+  padding: 3px;
 }

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { getMemes } from "../utils/api";
-import { Meme } from "./Meme";
 
 function HomePage() {
   const [templates, setTemplates] = useState([]);
@@ -25,82 +24,139 @@ function HomePage() {
   if (meme) {
     console.log(meme);
     return (
-      <div>
-        <img style={{ width: 600 }} src={meme} alt="your meme" />
-      </div>
+      <>
+        <div className="header">
+          <div className="banner">
+            <h1>Enjoy Your Meme!</h1>
+          </div>
+          <img
+            className="logo"
+            src="https://www.hazem-fahad.com/static/media/H-hweyz.7888f3db059cc15e3716.png"
+            alt="Hazem Logo"
+          />
+        </div>
+        <div className="finalMeme">
+          <img style={{ width: 400 }} src={meme} alt="your meme" />
+        </div>
+
+        <button
+          className="buttons"
+          style={{ width: 400 }}
+          onClick={() => {
+            setMeme(null);
+            setTemplate(null);
+            setTopText("");
+            setBottomText("");
+          }}
+        >
+          Back To HomePage
+        </button>
+      </>
     );
   }
 
   return (
-    <div className="HomePage">
-      <h1>Choose Your Meme!</h1>
-      <div className="photoGrid">
-        {template && (
-          <>
-            <form
-              onSubmit={async (e) => {
-                e.preventDefault();
+    <>
+      <div className="header">
+        <div className="banner">
+          <h1>Create Your Meme!</h1>
+          <h2>Hazem Fahad's Meme Generator</h2>
+        </div>
+        <img
+          className="logo"
+          src="https://www.hazem-fahad.com/static/media/H-hweyz.7888f3db059cc15e3716.png"
+          alt="Hazem Logo"
+        />
+      </div>
+      {template && (
+        <div>
+          <div className="memeBuilderImageContainer">
+            <img
+              className="memeBuilderImage"
+              key={template.id}
+              src={template.url}
+              alt="template"
+            ></img>
+          </div>
 
-                const params = {
-                  template_id: template.id,
-                  text0: topText,
-                  text1: bottomText,
-                  username: process.env.REACT_APP_IMGFLIP_USERNAME,
-                  password: process.env.REACT_APP_IMGFLIP_PASSWORD,
-                };
+          <form
+            className="memeForm"
+            onSubmit={async (e) => {
+              e.preventDefault();
 
-                const response = await fetch(
-                  `https://api.imgflip.com/caption_image${objectToQueryParam(
-                    params
-                  )}`
-                );
+              const params = {
+                template_id: template.id,
+                text0: topText,
+                text1: bottomText,
+                username: process.env.REACT_APP_IMGFLIP_USERNAME,
+                password: process.env.REACT_APP_IMGFLIP_PASSWORD,
+              };
 
-                console.log(response, process.env);
+              const response = await fetch(
+                `https://api.imgflip.com/caption_image${objectToQueryParam(
+                  params
+                )}`
+              );
 
-                const data = await response.json();
+              const data = await response.json();
 
-                setMeme(data.data.url);
+              setMeme(data.data.url);
+            }}
+          >
+            <input
+              className="memeBuilderInput"
+              id="topText"
+              placeholder="Top Text "
+              value={topText}
+              onChange={(e) => {
+                setTopText(e.target.value);
+              }}
+            />
+            <input
+              className="memeBuilderInput"
+              id="bottomText"
+              placeholder="Bottom Text"
+              value={bottomText}
+              onChange={(e) => {
+                setBottomText(e.target.value);
+              }}
+            />
+            <button type="submit" className="buttons">
+              Create Meme
+            </button>
+            <button
+              className="buttons"
+              onClick={() => {
+                setTemplate(null);
+                setTopText("");
+                setBottomText("");
               }}
             >
-              <Meme template={template} />
-              <input
-                placeholder="Top Text"
-                value={topText}
-                onChange={(e) => {
-                  setTopText(e.target.value);
-                }}
-              />
-              <input
-                placeholder="Bottom Text"
-                value={bottomText}
-                onChange={(e) => {
-                  setBottomText(e.target.value);
-                }}
-              />
-              <button type="submit">Create Meme</button>
-              <button
-                onClick={() => {
-                  setTemplate(null);
-                }}
-              >
-                Remove Template
-              </button>
-            </form>
-          </>
-        )}
+              Back To HomePage
+            </button>
+          </form>
+        </div>
+      )}
+      <div className="photoGrid">
         {!template &&
           templates.map((template) => {
             return (
-              <Meme
-                template={template}
-                onClick={() => {
-                  setTemplate(template);
-                }}
-              />
+              <div className="memeImageContainer">
+                <img
+                  className="memePhoto"
+                  style={{ width: 200 }}
+                  key={template.id}
+                  src={template.url}
+                  alt="template"
+                  onClick={() => {
+                    setTemplate(template);
+                  }}
+                ></img>
+              </div>
             );
           })}
       </div>
-    </div>
+    </>
   );
 }
 
