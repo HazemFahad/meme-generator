@@ -22,7 +22,6 @@ function HomePage() {
   }, []);
 
   if (meme) {
-    console.log(meme);
     return (
       <>
         <div className="header">

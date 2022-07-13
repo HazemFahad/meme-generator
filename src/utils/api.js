@@ -6,6 +6,12 @@ const memeApi = axios.create({
 
 export const getMemes = () => {
   return memeApi.get().then(({ data }) => {
-    return data.data.memes;
+    const allMemes = data.data.memes;
+
+    const relevantMemes = allMemes.filter((meme) => {
+      return meme.box_count <= 3;
+    });
+
+    return relevantMemes;
   });
 };
